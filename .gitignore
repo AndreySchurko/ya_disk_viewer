@@ -1,0 +1,45 @@
+# ОС файлы
+*.DS_Store
+*.vscode
+.idea/
+.vscode/
+*.log
+*.sqlite3
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Файлы среды и секретные данные
+.env
+.env.*
+.venv/
+.venv*/
+env/
+env*/
+
+# Конфигурации редактора и IDE
+*.sublime-project
+*.sublime-workspace
+
+# Файлы миграций
+*/migrations/*.py
+!*/migrations/__init__.py
+
+# Статические и медиафайлы
+static/
+media/
+
+# Скомпилированные файлы
+*.css.map
+*.js.map
+
+# Секреты и данные для Docker
+docker-compose.override.yml
+*.secret
+
+# Логи
+logs/
+
+# Тестовые файлы
+test.py
+test2.py
