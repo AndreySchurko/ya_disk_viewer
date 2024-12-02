@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список файлов и папок</title>
+</head>
+<body>
+    <a href="{% url 'ya_disk:index' %}">На главную</a>
+    <h1>Public Key: {{ public_key }}</h1>
+
+    <form method="get" action="{% url 'ya_disk:file_list' %}">
+        <input type="hidden" name="public_key" value="{{ public_key }}">
+        <label for="file_category">Выбрать файлы по категории:</label>
+        <select name="file_category" id="file_category" onchange="this.form.submit()">
+            <option value="all" {% if selected_category == 'all' %}selected{% endif %}>Все файлы</option>
+            <option value="documents" {% if selected_category == 'documents' %}selected{% endif %}>Документы</option>
+            <option value="images" {% if selected_category == 'images' %}selected{% endif %}>Изображения</option>
+            <option value="videos" {% if selected_category == 'videos' %}selected{% endif %}>Видео</option>
+            <option value="audio" {% if selected_category == 'audio' %}selected{% endif %}>Аудио</option>
+            # Список можно расширить другими типами файлов
+        </select>
+    </form>
+
+    <h2>Папки</h2>
+    <ul>
+        {% for folder in folders %}
+            <li>{{ folder.name }} (Folder)</li>
+        {% empty %}
+            <p>Нет папок</p>
+        {% endfor %}
+    </ul>
+
+    <h2>Файлы</h2>
+    <form method="get" action="{% url 'ya_disk:download_files' %}">
+        <ul>
+            {% for file in files %}
+                <li>
+                    <input type="checkbox" name="file_urls" value="{{ file.file_url }}">
+                    {{ file.name }} ({{ file.mime_type }})
+                    <a href="{% url 'ya_disk:download_file' %}?file_url={{ file.file_url|urlencode }}" target="_blank">
+                        Download
+                    </a>
+                </li>
+            {% empty %}
+                <p>Нет файлов</p>
+            {% endfor %}
+        </ul>
+        <button type="submit">Загрузить выбранные файлы (.zip)</button>
+    </form>
+</body>
+</html>
