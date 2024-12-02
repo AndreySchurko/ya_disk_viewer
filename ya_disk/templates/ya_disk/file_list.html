@@ -24,7 +24,7 @@
     <h2>Папки</h2>
     <ul>
         {% for folder in folders %}
-            <li>{{ folder.name }} (Folder)</li>
+            <li>{{ folder.name }}</li>
         {% empty %}
             <p>Нет папок</p>
         {% endfor %}
@@ -38,7 +38,7 @@
                     <input type="checkbox" name="file_urls" value="{{ file.file_url }}">
                     {{ file.name }} ({{ file.mime_type }})
                     <a href="{% url 'ya_disk:download_file' %}?file_url={{ file.file_url|urlencode }}" target="_blank">
-                        Download
+                        Загрузить
                     </a>
                 </li>
             {% empty %}

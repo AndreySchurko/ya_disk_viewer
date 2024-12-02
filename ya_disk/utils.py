@@ -21,16 +21,10 @@ def update_cache(public_key: str) -> QuerySet[CachedFile]:
     response.raise_for_status()
     data = response.json()
 
-    # Выводим данные для отладки
-    print("Response data:", data)
-
     items = data.get("_embedded", {}).get("items", [])
     CachedFile.objects.filter(public_key=public_key).delete()
 
     for item in items:
-        # Логирование типа элемента
-        print(f"Item type: {item.get('type')}, Name: {item.get('name')}")
-
         if item.get("type") == "dir":  # Папка
             CachedFile.objects.create(
                 public_key=public_key,
